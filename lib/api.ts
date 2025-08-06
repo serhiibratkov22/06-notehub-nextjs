@@ -8,6 +8,8 @@ if (!ACCESS_TOKEN) {
   throw new Error('NoteHub API key is missing');
 }
 
+console.log('TOKEN:', ACCESS_TOKEN);
+
 export default interface fetchNotesProps {
   notes: Note[];
   totalPages: number;
