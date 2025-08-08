@@ -6,6 +6,8 @@ import { useDebounce } from 'use-debounce';
 import { useQuery } from '@tanstack/react-query';
 
 import { fetchNotes } from '@/lib/api';
+import type { FetchNotesResponse } from '@/lib/api';
+
 import SearchBox from '@/components/SearchBox/SearchBox';
 import NoteList from '@/components/NoteList/NoteList';
 import Pagination from '@/components/Pagination/Pagination';
@@ -13,10 +15,9 @@ import Modal from '@/components/Modal/Modal';
 import NoteForm from '@/components/NoteForm/NoteForm';
 
 import css from './NotesPage.module.css';
-import fetchNotesProps from '@/lib/api';
 
 interface NotesClientProps {
-  initialData: fetchNotesProps;
+  initialData: FetchNotesResponse;
 }
 
 export default function NotesClient({ initialData }: NotesClientProps) {
@@ -38,6 +39,7 @@ export default function NotesClient({ initialData }: NotesClientProps) {
     queryKey: ['notes', searchQuery, page],
     queryFn: () => fetchNotes(searchQuery, page),
     initialData,
+    placeholderData: prevData => prevData,
     refetchOnMount: false,
   });
 
